@@ -2,8 +2,9 @@ import 'package:flutter/material.dart';
 
 class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
   final String title;
+  final VoidCallback? leadingFunction;
 
-  const MyAppBar({super.key, required this.title});
+  const MyAppBar({super.key, required this.title, this.leadingFunction});
 
   @override
   Widget build(BuildContext context) {
@@ -23,10 +24,14 @@ class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
               ),
             ),
             leading: Padding(
-              padding: const EdgeInsets.only(left:20),
+              padding: const EdgeInsets.only(left: 20),
               child: IconButton(
                 icon: Icon(Icons.arrow_back_ios, color: Colors.white),
-                onPressed: () => Navigator.of(context).pop(),
+                onPressed:
+                    leadingFunction ??
+                    () {
+                      Navigator.of(context).pop();
+                    },
                 iconSize: 30,
               ),
             ),
