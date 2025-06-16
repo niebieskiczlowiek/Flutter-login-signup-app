@@ -1,4 +1,5 @@
 import 'package:app/utils/button.dart';
+import 'package:app/utils/my_text_field.dart';
 import 'package:flutter/material.dart';
 
 class MyForm extends StatefulWidget {
@@ -14,7 +15,7 @@ class MyForm extends StatefulWidget {
     required this.usernameController,
     required this.passwordController,
     required this.showMessageNotifier,
-    required this.message
+    required this.message,
   });
 
   @override
@@ -54,17 +55,15 @@ class _MyFormState extends State<MyForm> {
               alignment: Alignment.center,
               child: Transform.translate(
                 offset: Offset(-18, 0),
-                child: TextFormField(
-                  decoration: const InputDecoration(
-                    hintText: "Username",
-                    icon: Icon(Icons.person),
-                    border: OutlineInputBorder(),
-                  ),
+                child: MyTextField(
                   validator: (String? value) {
                     validateUsername(value);
                     return null;
                   },
-                  controller: widget.usernameController,
+                  controler: widget.usernameController,
+                  hintText: "Username",
+                  icon: Icon(Icons.person),
+                  obscurable: false,
                 ),
               ),
             ),
@@ -73,18 +72,15 @@ class _MyFormState extends State<MyForm> {
               alignment: Alignment.center,
               child: Transform.translate(
                 offset: Offset(-18, 0),
-                child: TextFormField(
-                  obscureText: true,
-                  decoration: const InputDecoration(
-                    hintText: "Password",
-                    icon: Icon(Icons.lock),
-                    border: OutlineInputBorder(),
-                  ),
+                child: MyTextField(
                   validator: (String? value) {
                     validatePassword(value);
                     return null;
                   },
-                  controller: widget.passwordController,
+                  controler: widget.passwordController,
+                  hintText: "Password",
+                  icon: Icon(Icons.lock),
+                  obscurable: true,
                 ),
               ),
             ),
@@ -93,15 +89,18 @@ class _MyFormState extends State<MyForm> {
               builder: (context, showMessage, _) {
                 return showMessage
                     ? Padding(
-                      padding: const EdgeInsets.only(left:25),
-                      child: Align(
-                        alignment: Alignment.centerLeft,
-                        child: Text(widget.message, style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          color: Colors.red,
-                        )),
-                      ),
-                    )
+                        padding: const EdgeInsets.only(left: 25),
+                        child: Align(
+                          alignment: Alignment.centerLeft,
+                          child: Text(
+                            widget.message,
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              color: Colors.red,
+                            ),
+                          ),
+                        ),
+                      )
                     : const SizedBox.shrink();
               },
             ),
